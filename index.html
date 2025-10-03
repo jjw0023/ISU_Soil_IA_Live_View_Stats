@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>18 Item NumViews</title>
+  <style>
+    body {
+      font-family: Calibri, Arial, sans-serif;
+      background: #f7f9fb;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .card {
+      background: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 220px;
+    }
+
+    .label {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    @media (max-width: 1200px) {
+      body {
+        justify-content: center;
+      }
+      .column {
+        width: 100%;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Column 1 -->
+  <div class="column">
+    <div class="card"><div class="label">Corn Suitability Rating (CSR2)</div><div id="numViews1" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Digital Hillslope Position</div><div id="numViews2" class="value">Loading...</div></div>
+    <div class="card"><div class="label">% Organic Matter</div><div id="numViews3" class="value">Loading...</div></div>
+    <div class="card"><div class="label">% Clay</div><div id="numViews4" class="value">Loading...</div></div>
+    <div class="card"><div class="label">% Silt</div><div id="numViews5" class="value">Loading...</div></div>
+    <div class="card"><div class="label">% Sand</div><div id="numViews6" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Field Capacity</div><div id="numViews7" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Wilting Point</div><div id="numViews8" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Depth to Water Table</div><div id="numViews9" class="value">Loading...</div></div>
+  </div>
+
+  <!-- Column 2 -->
+  <div class="column">
+    <div class="card"><div class="label">Soil Parent Material</div><div id="numViews10" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Pre-settlement Wetlands</div><div id="numViews11" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Hydrologic Groups</div><div id="numViews12" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Slope Gradient (Degrees)</div><div id="numViews13" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Slope Gradient (Percent)</div><div id="numViews14" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Grassed Waterways</div><div id="numViews15" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Contoured Buffer Strips</div><div id="numViews16" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Strip Cropping</div><div id="numViews17" class="value">Loading...</div></div>
+    <div class="card"><div class="label">Terrace</div><div id="numViews18" class="value">Loading...</div></div>
+  </div>
+
+  <script>
+    const items = [
+      { id: "1ea3a690ab374de8aaa1b65e8226589b", elementId: "numViews1" },
+      { id: "95a74b4d0bce4c21b5491ee38c077ead", elementId: "numViews2" },
+      { id: "04cbbdc9af074758b59671fb65a2319b", elementId: "numViews3" },
+      { id: "720e136a7a46489495a2b94037ca8a3d", elementId: "numViews4" },
+      { id: "e8d5a10ea2eb4a57b8e865fa81644d1c", elementId: "numViews5" },
+      { id: "d888616ef10247b99e558090bae97e50", elementId: "numViews6" },
+      { id: "447ae6b3d5a24d169626e3262786a51d", elementId: "numViews7" },
+      { id: "a34fbcf634804e49a841a967d15fb2c6", elementId: "numViews8" },
+      { id: "1414d4ae5ab9478295f937c8cadab32b", elementId: "numViews9" },
+      { id: "61e512c38adf448dad7ebbf4186ff9c9", elementId: "numViews10" },
+      { id: "b8a9fb4227d4417aba12f6a6ce3439d2", elementId: "numViews11" },
+      { id: "32b676357d9946d6a7b3ced9f38ca65d", elementId: "numViews12" },
+      { id: "2ac7604431894c90b7b8cb9dd24e128d", elementId: "numViews13" },
+      { id: "9e5734c5d5434f2d8f1f43bf61ed85e9", elementId: "numViews14" },
+      { id: "7c811ecad16d40bca40ae36264d07591", elementId: "numViews15" },
+      { id: "f52a095ecc01486d86b17a2d71e7904c", elementId: "numViews16" },
+      { id: "da92fec5d6214257a0051e4da0ad8b5b", elementId: "numViews17" },
+      { id: "70de3bf7a9c440ae9b38f16fb7a04678", elementId: "numViews18" }
+    ];
+
+    items.forEach(item => {
+      const url = `https://enterprise.rsgis.msu.edu/portal/sharing/rest/content/items/${item.id}?f=json`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.numViews !== undefined) {
+            document.getElementById(item.elementId).textContent = data.numViews.toLocaleString();
+          } else {
+            document.getElementById(item.elementId).textContent = "numViews not found";
+          }
+        })
+        .catch(err => {
+          document.getElementById(item.elementId).textContent = "Error";
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+</html>
