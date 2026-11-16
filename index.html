@@ -114,7 +114,8 @@
           const adjustedViews =
             Number(data.numViews) - Number(item.subtract);
 
-document.getElementById(item.elementId).textContent = "TEST";
+document.getElementById(item.elementId).textContent =
+  (Number(data.numViews) - Number(item.subtract)).toLocaleString();
 
 
         } else {
