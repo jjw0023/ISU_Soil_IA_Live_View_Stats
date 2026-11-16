@@ -81,46 +81,47 @@
     <div class="card"><div class="label">Terrace</div><div id="numViews18" class="value">Loading...</div></div>
   </div>
 
-  <script>
-    const items = [
-      { id: "1ea3a690ab374de8aaa1b65e8226589b", elementId: "numViews1", subtract: 14364 },
-      { id: "95a74b4d0bce4c21b5491ee38c077ead", elementId: "numViews2", subtract: 13740 },
-      { id: "04cbbdc9af074758b59671fb65a2319b", elementId: "numViews3", subtract: 15029 },
-      { id: "720e136a7a46489495a2b94037ca8a3d", elementId: "numViews4", subtract: 20959 },
-      { id: "e8d5a10ea2eb4a57b8e865fa81644d1c", elementId: "numViews5", subtract: 14428 },
-      { id: "d888616ef10247b99e558090bae97e50", elementId: "numViews6", subtract: 19595 },
-      { id: "447ae6b3d5a24d169626e3262786a51d", elementId: "numViews7", subtract: 14414 },
-      { id: "a34fbcf634804e49a841a967d15fb2c6", elementId: "numViews8", subtract: 14401 },
-      { id: "1414d4ae5ab9478295f937c8cadab32b", elementId: "numViews9", subtract: 14520 },
-      { id: "61e512c38adf448dad7ebbf4186ff9c9", elementId: "numViews10", subtract: 15209 },
-      { id: "b8a9fb4227d4417aba12f6a6ce3439d2", elementId: "numViews11", subtract: 13710 },
-      { id: "32b676357d9946d6a7b3ced9f38ca65d", elementId: "numViews12", subtract: 19583 },
-      { id: "2ac7604431894c90b7b8cb9dd24e128d", elementId: "numViews13", subtract: 14392 },
-      { id: "9e5734c5d5434f2d8f1f43bf61ed85e9", elementId: "numViews14", subtract: 19610 },
-      { id: "7c811ecad16d40bca40ae36264d07591", elementId: "numViews15", subtract: 5875 },
-      { id: "f52a095ecc01486d86b17a2d71e7904c", elementId: "numViews16", subtract: 5877 },
-      { id: "da92fec5d6214257a0051e4da0ad8b5b", elementId: "numViews17", subtract: 5876 },
-      { id: "70de3bf7a9c440ae9b38f16fb7a04678", elementId: "numViews18", subtract: 5873 }
-    ];
+<script>
+  const items = [
+    { id: "1ea3a690ab374de8aaa1b65e8226589b", elementId: "numViews1", subtract: 14364 },
+    { id: "95a74b4d0bce4c21b5491ee38c077ead", elementId: "numViews2", subtract: 13740 },
+    { id: "04cbbdc9af074758b59671fb65a2319b", elementId: "numViews3", subtract: 15029 },
+    { id: "720e136a7a46489495a2b94037ca8a3d", elementId: "numViews4", subtract: 20959 },
+    { id: "e8d5a10ea2eb4a57b8e865fa81644d1c", elementId: "numViews5", subtract: 14428 },
+    { id: "d888616ef10247b99e558090bae97e50", elementId: "numViews6", subtract: 19595 },
+    { id: "447ae6b3d5a24d169626e3262786a51d", elementId: "numViews7", subtract: 14414 },
+    { id: "a34fbcf634804e49a841a967d15fb2c6", elementId: "numViews8", subtract: 14401 },
+    { id: "1414d4ae5ab9478295f937c8cadab32b", elementId: "numViews9", subtract: 14520 },
+    { id: "61e512c38adf448dad7ebbf4186ff9c9", elementId: "numViews10", subtract: 15209 },
+    { id: "b8a9fb4227d4417aba12f6a6ce3439d2", elementId: "numViews11", subtract: 13710 },
+    { id: "32b676357d9946d6a7b3ced9f38ca65d", elementId: "numViews12", subtract: 19583 },
+    { id: "2ac7604431894c90b7b8cb9dd24e128d", elementId: "numViews13", subtract: 14392 },
+    { id: "9e5734c5d5434f2d8f1f43bf61ed85e9", elementId: "numViews14", subtract: 19610 },
+    { id: "7c811ecad16d40bca40ae36264d07591", elementId: "numViews15", subtract: 5875 },
+    { id: "f52a095ecc01486d86b17a2d71e7904c", elementId: "numViews16", subtract: 5877 },
+    { id: "da92fec5d6214257a0051e4da0ad8b5b", elementId: "numViews17", subtract: 5876 },
+    { id: "70de3bf7a9c440ae9b38f16fb7a04678", elementId: "numViews18", subtract: 5873 }
+  ];
 
-    items.forEach(item => {
-      const url = `https://enterprise.rsgis.msu.edu/portal/sharing/rest/content/items/${item.id}?f=json`;
+  items.forEach(item => {
+    const url = `https://enterprise.rsgis.msu.edu/portal/sharing/rest/content/items/${item.id}?f=json`;
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (data.numViews !== undefined) {
-            document.getElementById(item.elementId).textContent = data.numViews.toLocaleString();
-          } else {
-            document.getElementById(item.elementId).textContent = "numViews not found";
-          }
-        })
-        .catch(err => {
-          document.getElementById(item.elementId).textContent = "Error";
-          console.error(err);
-        });
-    });
-  </script>
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.numViews !== undefined) {
+          document.getElementById(item.elementId).textContent =
+            (data.numViews - item.subtract).toLocaleString();
+        } else {
+          document.getElementById(item.elementId).textContent = "numViews not found";
+        }
+      })
+      .catch(err => {
+        document.getElementById(item.elementId).textContent = "Error";
+        console.error(err);
+      });
+  });
+</script>
 </body>
 </html>
 
