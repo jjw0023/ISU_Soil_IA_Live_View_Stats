@@ -110,10 +110,16 @@
       .then(response => response.json())
       .then(data => {
         if (data.numViews !== undefined) {
+
+          const adjustedViews =
+            Number(data.numViews) - Number(item.subtract);
+
           document.getElementById(item.elementId).textContent =
-            (data.numViews - item.subtract).toLocaleString();
+            adjustedViews.toLocaleString();
+
         } else {
-          document.getElementById(item.elementId).textContent = "numViews not found";
+          document.getElementById(item.elementId).textContent =
+            "numViews not found";
         }
       })
       .catch(err => {
